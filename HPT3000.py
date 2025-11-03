@@ -62,7 +62,7 @@ def read_vector_from_upload(uploaded_file) -> gpd.GeoDataFrame:
     temppath = tmpdir / uploaded_file.name
     with open(temppath, "wb") as f:
         f.write(uploaded_file.getbuffer())
-    gdf = gpd.read_file(f"zip://{temppath}") if suffix == ".zip" else gpd.read_file(temppath)
+    gdf = gpd.read_file(f"zip://{temppath}", engine="pyogrio") if suffix == ".zip" else gpd.read_file(temppath)
     gdf.columns = [str(c) for c in gdf.columns]
     return gdf
 
